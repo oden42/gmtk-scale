@@ -1,23 +1,108 @@
-[gd_scene load_steps=3 format=3 uid="uid://bescnntvtgjth"]
+[gd_scene load_steps=13 format=3 uid="uid://bescnntvtgjth"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_ka3xo"]
+[ext_resource type="Texture2D" uid="uid://cfux6hq5ei04o" path="res://assets/beetle2.png" id="2_de2sk"]
+[ext_resource type="Texture2D" uid="uid://bmubrghty8wb2" path="res://assets/TCom_Gore_512_height.png" id="2_slmle"]
+[ext_resource type="Texture2D" uid="uid://b7tdtwwylh0o6" path="res://assets/TCom_Gore_512_normal.png" id="3_3ovk8"]
+[ext_resource type="Texture2D" uid="uid://d368shr3ms542" path="res://assets/TCom_Gore_512_roughness.png" id="4_c6pmx"]
+[ext_resource type="Texture2D" uid="uid://cbdevxmelf2hi" path="res://assets/shadow_1_white.png" id="4_oodb2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1gut"]
-size = Vector2(32, 32)
+[sub_resource type="CircleShape2D" id="CircleShape2D_pw4ie"]
+radius = 18.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_naaw6"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6qxr"]
+albedo_color = Color(0.487953, 0.360837, 0.139995, 1)
+albedo_texture = ExtResource("2_slmle")
+roughness_texture = ExtResource("4_c6pmx")
+normal_enabled = true
+normal_texture = ExtResource("3_3ovk8")
+rim_enabled = true
+rim_tint = 0.78
+clearcoat = 0.0
+clearcoat_roughness = 0.62
+clearcoat_texture = ExtResource("2_slmle")
+ao_texture = ExtResource("2_slmle")
+heightmap_texture = ExtResource("2_slmle")
+backlight = Color(0.136826, 0.136826, 0.136826, 1)
+grow_amount = -0.352
+
+[sub_resource type="SphereMesh" id="SphereMesh_ekj16"]
+material = SubResource("StandardMaterial3D_m6qxr")
+
+[sub_resource type="Environment" id="Environment_6dmdr"]
+ambient_light_source = 2
+ambient_light_color = Color(0.553751, 0.439398, 0.22733, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oa5r3"]
+font_size = 8
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ka3xo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_m1gut")
+shape = SubResource("CircleShape2D_pw4ie")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.334757, 0.217676, 0.143084, 1)
-polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+[node name="BallSprite" type="Sprite2D" parent="."]
+z_index = 1
+texture = SubResource("ViewportTexture_naaw6")
 
-[node name="beetle" type="Polygon2D" parent="."]
-position = Vector2(0, 16)
-color = Color(0.0771228, 0.0370191, 0.0169124, 1)
-polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+[node name="CenterPivot" type="Node2D" parent="."]
+
+[node name="BeetleMarker" type="Marker2D" parent="CenterPivot"]
+position = Vector2(-5, 0)
+
+[node name="Beetle" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(-5, 0)
+texture = ExtResource("2_de2sk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(8, 8)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(10, 10)
+
+[node name="Node3D" type="Node3D" parent="SubViewport"]
+
+[node name="BallMesh" type="MeshInstance3D" parent="SubViewport/Node3D"]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_ekj16")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.04762, 2)
+environment = SubResource("Environment_6dmdr")
+projection = 1
+size = 1.5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.39177, 1.03726)
+light_energy = 3.133
+
+[node name="Sprite3D" type="Sprite3D" parent="SubViewport/Node3D"]
+transform = Transform3D(0.4, 0, 0, 0, -1.74846e-08, 0.4, 0, -0.4, -1.74846e-08, 0, -0.50248, -0.11376)
+modulate = Color(0.136943, 0.0498393, 0.0661076, 0.439216)
+texture = ExtResource("4_oodb2")
+
+[node name="DebugLabel1" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = 24.0
+offset_right = 18.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Debug1"
+label_settings = SubResource("LabelSettings_oa5r3")
+horizontal_alignment = 1
+vertical_alignment = 1

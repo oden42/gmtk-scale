@@ -1,9 +1,14 @@
 extends CanvasLayer
 
 var time_elapsed: float = 0.0
+var score: int = 0
 
 @onready var time_label: Label = %TimeLabel
 @onready var score_label: Label = %ScoreLabel
+
+
+func _ready() -> void:
+	GameManager.score_changed.connect(_on_score_changed)
 
 
 func _process(delta):
@@ -22,3 +27,7 @@ func set_time(time: float, use_milliseconds: bool) -> String:
 		
 	var milliseconds := fmod(time, 1) * 100
 	return "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+
+
+func _on_score_changed(value: int) -> void:
+	score_label.text = str(value)
