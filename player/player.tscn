@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bescnntvtgjth"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_ka3xo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1gut"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ka3xo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m1gut")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.334757, 0.217676, 0.143084, 1)
+polygon = PackedVector2Array(-16, -16, -16, 16, 16, 16, 16, -16)
+
+[node name="beetle" type="Polygon2D" parent="."]
+position = Vector2(0, 16)
+color = Color(0.0771228, 0.0370191, 0.0169124, 1)
+polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+
+[node name="Camera2D" type="Camera2D" parent="."]
