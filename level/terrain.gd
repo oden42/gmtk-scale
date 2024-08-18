@@ -2,6 +2,8 @@ extends Node2D
 
 const CHUNK_SIZE:= Vector2i(16,16)
 
+const DUNG_PICKUP = preload("res://objects/dung_pickup.tscn")
+
 @export var player: CharacterBody2D
 @export var randomize_on_start: bool = false
 @export var level_seed: int = hash(0):
@@ -37,6 +39,7 @@ var initial_generation_completed: bool = false
 
 @onready var ground_tiles: TileMapLayer = %GroundTiles
 @onready var object_tiles: TileMapLayer = %ObjectTiles
+@onready var dung_node: Node = %Dung
 
 
 func _ready() -> void:
@@ -175,6 +178,8 @@ func generate_chunk(chunk: Vector2i) -> void:
 	#chunk_ceiling_changes.clear()
 	var chunk_pos := Vector2i((chunk.x * CHUNK_SIZE.x) - 1, (chunk.y * CHUNK_SIZE.y) - 1)
 	_generate_ground(chunk_pos)
+	_generate_objects(chunk_pos)
+	_generate_dung(chunk_pos)
 	#_generate_from_noise(chunk_pos)
 	#_generate_dungeon(chunk_pos)
 	
@@ -202,6 +207,44 @@ func _generate_ground(pos: Vector2i) -> void:
 			else:
 				# Set ground layer to the base color
 				ground_tiles.set_cell(pos_in_chunk, 0, Vector2i(1,1))
+
+
+func _generate_objects(pos: Vector2i) -> void:
+	var spawn_chance := 0.02
+	for x in range(CHUNK_SIZE.x):
+		for y in range(CHUNK_SIZE.y):
+			#var wall = wall_noise.get_noise_2d(pos.x + x, pos.y + y)
+			var pos_in_chunk = Vector2i(pos.x + x, pos.y + y)
+			
+			# Set ground layer
+			if spawn_chance >= randf():
+				# Set some of the ground tiles to a variation
+				#ground_tiles.set_cell(pos_in_chunk, 0, Vector2i(randi() % 5, randi() % 2))
+				object_tiles.set_cell(pos_in_chunk, 0, Vector2i(randi_range(3, 12), 3))
+			#else:
+				## Set ground layer to the base color
+				#object_tiles.set_cell(pos_in_chunk, 0, Vector2i(1,1))
+
+
+func _generate_dung(pos: Vector2i) -> void:
+	var spawn_chance := 0.05
+	for x in range(CHUNK_SIZE.x):
+		for y in range(CHUNK_SIZE.y):
+			#var wall = wall_noise.get_noise_2d(pos.x + x, pos.y + y)
+			var pos_in_chunk = Vector2i(pos.x + x, pos.y + y)
+			var world_pos = object_tiles.map_to_local(pos_in_chunk)
+			
+			# Set ground layer
+			if spawn_chance >= randf():
+				# Set some of the ground tiles to a variation
+				#ground_tiles.set_cell(pos_in_chunk, 0, Vector2i(randi() % 5, randi() % 2))
+				#object_tiles.set_cell(pos_in_chunk, 0, Vector2i(randi_range(3, 12), 3))
+				var dung = DUNG_PICKUP.instantiate()
+				dung.position = world_pos
+				dung_node.add_child(dung)
+			#else:
+				## Set ground layer to the base color
+				#object_tiles.set_cell(pos_in_chunk, 0, Vector2i(1,1))
 
 
 func _set_render_area(origin: Vector2i) -> void:

@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1fevi4ujwvyb"]
+[gd_scene load_steps=5 format=3 uid="uid://c1fevi4ujwvyb"]
 
 [ext_resource type="Script" path="res://level/terrain.gd" id="1_4odpt"]
 [ext_resource type="PackedScene" uid="uid://bescnntvtgjth" path="res://player/player.tscn" id="1_jhogs"]
 [ext_resource type="TileSet" uid="uid://dyphhtiaa0pt7" path="res://level/tiles/desert_tileset.tres" id="2_tnkhn"]
 [ext_resource type="PackedScene" uid="uid://csnbu67dbt30g" path="res://ui/ui.tscn" id="3_74mtn"]
-[ext_resource type="PackedScene" uid="uid://d1fdreqvcjh8w" path="res://objects/dung_pickup.tscn" id="5_r4c8s"]
 
 [node name="Level" type="Node2D"]
 
@@ -25,41 +24,5 @@ tile_set = ExtResource("2_tnkhn")
 
 [node name="UI" parent="." instance=ExtResource("3_74mtn")]
 
-[node name="DungPickup" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(93, 24)
-
-[node name="DungPickup6" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(49, 30)
-
-[node name="DungPickup7" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(36, 31)
-
-[node name="DungPickup8" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(24, 33)
-
-[node name="DungPickup9" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(33, 40)
-
-[node name="DungPickup10" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(47, 40)
-
-[node name="DungPickup11" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(41, 49)
-
-[node name="DungPickup2" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(71, -48)
-value = 3
-variant = 2
-size = 4
-
-[node name="DungPickup3" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(-88, -17)
-
-[node name="DungPickup4" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(-122, 57)
-
-[node name="DungPickup5" parent="." instance=ExtResource("5_r4c8s")]
-position = Vector2(-21, -118)
-value = 5
-variant = 9
-size = 7
+[node name="Dung" type="Node" parent="."]
+unique_name_in_owner = true

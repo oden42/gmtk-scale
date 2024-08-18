@@ -8,6 +8,7 @@ class_name Player
 		set_ball_size()
 
 var last_direction: Vector2 = Vector2(0, -1)
+var marker_pos_x: float = -(0.325 * size + 1.75)
 
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var ball_mesh: MeshInstance3D = %BallMesh
@@ -33,7 +34,14 @@ func _process(_delta: float) -> void:
 	ball_mesh.rotate_x(direction.y * 0.1)
 	ball_mesh.rotate_z(-direction.x * 0.1)
 	
+	
 	center_pivot.rotation = last_direction.angle()
+	var new_angle_distance = -0.25 * sin(abs(center_pivot.rotation)) + 1
+	new_angle_distance = snappedf(new_angle_distance, 0.01)
+	beetle_marker.position.x = marker_pos_x * new_angle_distance
+	#print(center_pivot.rotation_degrees, " new: ", new_angle_distance)
+	#print("sin: ", sin(center_pivot.rotation))
+	
 	beetle.global_position = beetle_marker.global_position
 	
 	if last_direction.y > 0:
@@ -46,6 +54,8 @@ func _process(_delta: float) -> void:
 
 func set_ball_size() -> void:
 	sub_viewport.size = Vector2(size, size)
+	marker_pos_x = -(0.325 * size + 1.75)
+	beetle_marker.position.x = marker_pos_x
 
 
 func _on_score_changed(score: int) -> void:

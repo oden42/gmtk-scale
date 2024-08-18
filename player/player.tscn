@@ -40,6 +40,7 @@ ambient_light_color = Color(0.553751, 0.439398, 0.22733, 1)
 font_size = 8
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 6
 script = ExtResource("1_ka3xo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,6 +58,11 @@ position = Vector2(-5, 0)
 [node name="Beetle" type="Sprite2D" parent="."]
 z_index = 2
 position = Vector2(-5, 0)
+texture = ExtResource("2_de2sk")
+
+[node name="BeetleShadow" type="Sprite2D" parent="Beetle"]
+modulate = Color(0, 0, 0, 0.254902)
+position = Vector2(0, 1)
 texture = ExtResource("2_de2sk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
