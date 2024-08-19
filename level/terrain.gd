@@ -242,6 +242,7 @@ func _generate_dung(pos: Vector2i) -> void:
 				var dung = DUNG_PICKUP.instantiate()
 				dung.position = world_pos
 				dung_node.add_child(dung)
+				
 			#else:
 				## Set ground layer to the base color
 				#object_tiles.set_cell(pos_in_chunk, 0, Vector2i(1,1))

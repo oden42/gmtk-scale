@@ -1,7 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1fdreqvcjh8w"]
+[gd_scene load_steps=13 format=3 uid="uid://d1fdreqvcjh8w"]
 
 [ext_resource type="Texture2D" uid="uid://bb6pevhj5h3p0" path="res://assets/dung-sheet1.png" id="1_bnnhf"]
 [ext_resource type="Script" path="res://objects/dung_pickup.gd" id="1_rvtxh"]
+[ext_resource type="Script" path="res://audio/manager/ListSoundResource.gd" id="2_cjye8"]
+[ext_resource type="AudioStream" uid="uid://ly8cm0v7xnba" path="res://audio/sounds/slurps/slurp_c_01.wav" id="3_35wjn"]
+[ext_resource type="AudioStream" uid="uid://bdf8urmo55led" path="res://audio/sounds/slurps/slurp_c_02.wav" id="4_hth3t"]
+[ext_resource type="AudioStream" uid="uid://bo1sfy38sbkns" path="res://audio/sounds/slurps/slurp_c_03.wav" id="5_u0o65"]
+[ext_resource type="AudioStream" uid="uid://bbmtxd2ng1frn" path="res://audio/sounds/slurps/slurp_c_04.wav" id="6_na50y"]
+[ext_resource type="AudioStream" uid="uid://4ako6xpljf1u" path="res://audio/sounds/slurps/slurp_c_05.wav" id="7_ecdp3"]
+[ext_resource type="AudioStream" uid="uid://whjsrgcodwr7" path="res://audio/sounds/slurps/slurp_f_01.wav" id="8_tucu5"]
+[ext_resource type="AudioStream" uid="uid://b8lokrhjomhhp" path="res://audio/sounds/slurps/slurp_f_02.wav" id="9_u4mxo"]
+
+[sub_resource type="Resource" id="Resource_4fes6"]
+script = ExtResource("2_cjye8")
+sound_list = Array[AudioStream]([ExtResource("3_35wjn"), ExtResource("4_hth3t"), ExtResource("5_u0o65"), ExtResource("6_na50y"), ExtResource("7_ecdp3"), ExtResource("8_tucu5"), ExtResource("9_u4mxo")])
+random_order = true
+pitch_min = 0.9
+pitch_max = 1.2
+volume = 0.0
+retrigger_time = 0.032
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1q8j1"]
 resource_local_to_scene = true
@@ -10,6 +27,8 @@ radius = 3.0
 [node name="DungPickup" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_rvtxh")
+randomize_variant = null
+pickup_sound = SubResource("Resource_4fes6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1q8j1")

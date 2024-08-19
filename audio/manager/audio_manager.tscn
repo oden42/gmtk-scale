@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://v1t4kw8wk552"]
+
+[ext_resource type="Script" path="res://audio/manager/audiomanager.gd" id="1_soq4u"]
+[ext_resource type="AudioStream" uid="uid://bekbqg07s7hfj" path="res://audio/music/Farting Around.mp3" id="2_onnek"]
+
+[node name="AudioManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_soq4u")
+
+[node name="MusicStream" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("2_onnek")
+
+[node name="SFX" type="Node" parent="."]

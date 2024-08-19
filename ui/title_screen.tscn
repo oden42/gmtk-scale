@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cp0a3v5w7cg7i"]
+[gd_scene load_steps=4 format=3 uid="uid://cp0a3v5w7cg7i"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_6j8de"]
-font_size = 48
-outline_size = 4
-outline_color = Color(0.720093, 0.579334, 0.14604, 1)
-shadow_size = 5
-shadow_color = Color(0.479722, 0.474879, 0.358521, 0.952941)
-shadow_offset = Vector2(0, 4)
+[ext_resource type="Script" path="res://ui/title_screen.gd" id="1_p3uy0"]
+[ext_resource type="LabelSettings" uid="uid://b74op5dy1o5sk" path="res://ui/title_label.tres" id="2_1si36"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfhgu"]
+bg_color = Color(0, 0, 0, 0.807843)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -15,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_p3uy0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -23,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.15257, 0.127156, 0.061636, 1)
+color = Color(0.461901, 0.308416, 0.196302, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -45,26 +48,81 @@ theme_override_constants/separation = 15
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Dung Roller"
-label_settings = SubResource("LabelSettings_6j8de")
+text = "Turdie's Duties"
+label_settings = ExtResource("2_1si36")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 21
-text = "Start Game"
+text = "Play"
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 21
+text = "Credits"
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Options"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit"
+
+[node name="CreditsPanel" type="PanelContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dfhgu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CreditsPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/CreditsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center][font_size=30] Made by [b]oden42[/b][/font_size]
+[i]Programming - Art - SFX[/i]
+[url]https://github.com/oden42/gmtk-scale[/url]
+
+
+[font_size=24][b][u]Art:[/u][/b][/font_size]
+[b]Tileset:[/b] [i]Deset Tilemap 16x16 by beyonderboy
+[url]https://beyonderboy.itch.io/desert-map-tileset-16x16[/url][/i]
+
+[font_size=24][b][u]Music:[/u][/b][/font_size]
+[i]\"Farting Around\" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/[/i]
+
+
+
+"
+fit_content = true
+
+[node name="CloseCreditsButton" type="Button" parent="MarginContainer/CreditsPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Close"
+
+[connection signal="button_up" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_button_up"]
+[connection signal="button_down" from="MarginContainer/CreditsPanel/VBoxContainer/CloseCreditsButton" to="." method="_on_close_credits_button_button_down"]

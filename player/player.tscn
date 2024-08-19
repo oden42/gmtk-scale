@@ -7,9 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d368shr3ms542" path="res://assets/TCom_Gore_512_roughness.png" id="4_c6pmx"]
 [ext_resource type="Texture2D" uid="uid://cbdevxmelf2hi" path="res://assets/shadow_1_white.png" id="4_oodb2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pw4ie"]
-radius = 18.0
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_naaw6"]
 viewport_path = NodePath("SubViewport")
 
@@ -39,12 +36,12 @@ ambient_light_color = Color(0.553751, 0.439398, 0.22733, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_oa5r3"]
 font_size = 8
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pw4ie"]
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 6
 script = ExtResource("1_ka3xo")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_pw4ie")
+move_speed = 60.0
 
 [node name="BallSprite" type="Sprite2D" parent="."]
 z_index = 1
@@ -53,11 +50,11 @@ texture = SubResource("ViewportTexture_naaw6")
 [node name="CenterPivot" type="Node2D" parent="."]
 
 [node name="BeetleMarker" type="Marker2D" parent="CenterPivot"]
-position = Vector2(-5, 0)
+position = Vector2(-6, 0)
 
 [node name="Beetle" type="Sprite2D" parent="."]
 z_index = 2
-position = Vector2(-5, 0)
+position = Vector2(-6, 0)
 texture = ExtResource("2_de2sk")
 
 [node name="BeetleShadow" type="Sprite2D" parent="Beetle"]
@@ -70,7 +67,7 @@ zoom = Vector2(8, 8)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(10, 10)
+size = Vector2i(4, 4)
 
 [node name="Node3D" type="Node3D" parent="SubViewport"]
 
@@ -79,10 +76,11 @@ unique_name_in_owner = true
 mesh = SubResource("SphereMesh_ekj16")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.04762, 2)
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.15857, 2)
 environment = SubResource("Environment_6dmdr")
 projection = 1
-size = 1.5
+size = 1.3
+far = 10.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SubViewport/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.39177, 1.03726)
@@ -112,3 +110,6 @@ text = "Debug1"
 label_settings = SubResource("LabelSettings_oa5r3")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pw4ie")

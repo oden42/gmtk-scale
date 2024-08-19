@@ -2,13 +2,17 @@ extends CharacterBody2D
 class_name Player
 
 @export var move_speed: float = 100.0
-@export var size: int = 10:
+@export var starting_size: int = 4
+
+var size: int:
 	set(value):
+		if !is_node_ready():
+			await ready
 		size = value
 		set_ball_size()
-
 var last_direction: Vector2 = Vector2(0, -1)
 var marker_pos_x: float = -(0.325 * size + 1.75)
+var mass: int
 
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var ball_mesh: MeshInstance3D = %BallMesh
@@ -16,12 +20,14 @@ var marker_pos_x: float = -(0.325 * size + 1.75)
 @onready var center_pivot: Node2D = $CenterPivot
 @onready var beetle_marker: Marker2D = $CenterPivot/BeetleMarker
 @onready var sub_viewport: SubViewport = $SubViewport
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
 
 @onready var debug_label_1: Label = %DebugLabel1
 
 func _ready() -> void:
 	GameManager.score_changed.connect(_on_score_changed)
-
+	size = starting_size
 
 func _process(_delta: float) -> void:
 	var direction: Vector2 = Input.get_vector("move left", "move right", "move up", "move down")
@@ -36,9 +42,9 @@ func _process(_delta: float) -> void:
 	
 	
 	center_pivot.rotation = last_direction.angle()
-	var new_angle_distance = -0.25 * sin(abs(center_pivot.rotation)) + 1
-	new_angle_distance = snappedf(new_angle_distance, 0.01)
-	beetle_marker.position.x = marker_pos_x * new_angle_distance
+	#var new_angle_distance = -0.25 * sin(abs(center_pivot.rotation)) + 1
+	#new_angle_distance = snappedf(new_angle_distance, 0.01)
+	beetle_marker.position.x = marker_pos_x #* new_angle_distance
 	#print(center_pivot.rotation_degrees, " new: ", new_angle_distance)
 	#print("sin: ", sin(center_pivot.rotation))
 	
@@ -54,14 +60,16 @@ func _process(_delta: float) -> void:
 
 func set_ball_size() -> void:
 	sub_viewport.size = Vector2(size, size)
-	marker_pos_x = -(0.325 * size + 1.75)
+	marker_pos_x = -(0.385 * size + 1)
+	collision_shape_2d.shape.radius = 0.385 * size - 0.54
+	print(collision_shape_2d.shape.radius)
 	beetle_marker.position.x = marker_pos_x
 
 
 func _on_score_changed(score: int) -> void:
 	#var increase: int = (score + 10) - size
 	#camera_2d.zoom *= 1 - (increase * 0.01)
-	size = score + 10
+	size = score + starting_size
 	print("New size: ", size)
 
 
