@@ -27,7 +27,6 @@ radius = 3.0
 [node name="DungPickup" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_rvtxh")
-randomize_variant = null
 pickup_sound = SubResource("Resource_4fes6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

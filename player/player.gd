@@ -14,6 +14,8 @@ var last_direction: Vector2 = Vector2(0, -1)
 var marker_pos_x: float = -(0.325 * size + 1.75)
 var mass: int
 
+var zoom: Vector2 = Vector2(8, 8)
+
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var ball_mesh: MeshInstance3D = %BallMesh
 @onready var beetle: Sprite2D = $Beetle
@@ -64,6 +66,14 @@ func set_ball_size() -> void:
 	collision_shape_2d.shape.radius = 0.385 * size - 0.54
 	print(collision_shape_2d.shape.radius)
 	beetle_marker.position.x = marker_pos_x
+	if size > 50 and zoom > Vector2(4, 4):
+		var tween: Tween = get_tree().create_tween()
+		zoom = Vector2(4, 4)
+		tween.tween_property(camera_2d, "zoom", zoom, 1.0)
+	elif size > 100 and zoom > Vector2(2, 2):
+		var tween: Tween = get_tree().create_tween()
+		zoom = Vector2(2, 2)
+		tween.tween_property(camera_2d, "zoom", zoom, 1.0)
 
 
 func _on_score_changed(score: int) -> void:
