@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dstbblc0saya4"]
+[gd_scene load_steps=5 format=3 uid="uid://dstbblc0saya4"]
 
 [ext_resource type="Script" path="res://ui/pause_screen.gd" id="1_47p7y"]
 [ext_resource type="LabelSettings" uid="uid://b74op5dy1o5sk" path="res://ui/title_label.tres" id="2_dml1h"]
+[ext_resource type="FontFile" uid="uid://denucdxyy81jm" path="res://ui/fonts/Yes Free.otf" id="3_kugih"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h2m1p"]
-font_size = 48
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(1, 2)
+font = ExtResource("3_kugih")
+font_size = 60
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="PauseScreen" type="Control"]
 process_mode = 3
@@ -39,7 +41,7 @@ theme_override_constants/separation = 10
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Turdie's Duties"
+text = "<Turdie's Duties>"
 label_settings = ExtResource("2_dml1h")
 horizontal_alignment = 1
 

@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dj84ff5hfxwfh"]
+
+[ext_resource type="FontFile" uid="uid://denucdxyy81jm" path="res://ui/fonts/Yes Free.otf" id="1_kwm4j"]
+
+[resource]
+font = ExtResource("1_kwm4j")
+font_size = 48

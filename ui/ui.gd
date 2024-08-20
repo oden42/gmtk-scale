@@ -6,7 +6,7 @@ const MUSIC_OFF = preload("res://ui/icons/musicOff.png")
 const MUSIC_ON = preload("res://ui/icons/musicOn.png")
 
 var time_elapsed: float = 0.0
-var time_left: float = 120.0
+var time_left: float = 90.0
 var score: int = 0
 
 @onready var time_label: Label = %TimeLabel

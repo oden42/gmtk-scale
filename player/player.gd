@@ -15,6 +15,7 @@ var marker_pos_x: float = -(0.325 * size + 1.75)
 var mass: int
 
 var zoom: Vector2 = Vector2(8, 8)
+var score_slow: float = 1
 
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var ball_mesh: MeshInstance3D = %BallMesh
@@ -39,8 +40,9 @@ func _process(_delta: float) -> void:
 	velocity = direction * move_speed
 	move_and_slide()
 	
-	ball_mesh.rotate_x(direction.y * 0.1)
-	ball_mesh.rotate_z(-direction.x * 0.1)
+	
+	ball_mesh.rotate_x(direction.y * 0.1 * score_slow)
+	ball_mesh.rotate_z(-direction.x * 0.1 * score_slow)
 	
 	
 	center_pivot.rotation = last_direction.angle()
@@ -64,7 +66,7 @@ func set_ball_size() -> void:
 	sub_viewport.size = Vector2(size, size)
 	marker_pos_x = -(0.385 * size + 1)
 	collision_shape_2d.shape.radius = 0.385 * size - 0.54
-	print(collision_shape_2d.shape.radius)
+	#print(collision_shape_2d.shape.radius)
 	beetle_marker.position.x = marker_pos_x
 	if size > 50 and zoom > Vector2(4, 4):
 		var tween: Tween = get_tree().create_tween()
@@ -80,6 +82,16 @@ func _on_score_changed(score: int) -> void:
 	#var increase: int = (score + 10) - size
 	#camera_2d.zoom *= 1 - (increase * 0.01)
 	size = score + starting_size
+	if score > 20:
+		score_slow = 0.8
+	elif score > 40:
+		score_slow = 0.6
+	elif score > 60:
+		score_slow = 0.4
+	elif score > 100:
+		score_slow = 0.2
+	elif score > 150:
+		score_slow = 0.1
 	print("New size: ", size)
 
 

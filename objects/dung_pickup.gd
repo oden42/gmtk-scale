@@ -19,7 +19,7 @@ class_name Dung
 @export var pickup_sound: SoundResource
 
 var rng = RandomNumberGenerator.new()
-var weights: PackedFloat32Array = [20, 10, 8, 5, 4, 2, 1, 0.5, 0.2]
+var weights: PackedFloat32Array = [20, 8, 4, 2, 1.5, 1, 0.5, 0.3, 0.1]
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var sprite_2d: Sprite2D = $Sprite2D

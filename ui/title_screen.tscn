@@ -48,7 +48,7 @@ theme_override_constants/separation = 15
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Turdie's Duties"
+text = "<Turdie's Duties>"
 label_settings = ExtResource("2_1si36")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -106,6 +106,9 @@ text = "[center][font_size=30] Made by [b]oden42[/b][/font_size]
 [font_size=24][b][u]Art:[/u][/b][/font_size]
 [b]Tileset:[/b] [i]Deset Tilemap 16x16 by beyonderboy
 [url]https://beyonderboy.itch.io/desert-map-tileset-16x16[/url][/i]
+
+[b]Font:[/b] [i]Yes Free
+[url]https://www.dafont.com/yes-free.font[/url][/i]
 
 [font_size=24][b][u]Music:[/u][/b][/font_size]
 [i]\"Farting Around\" Kevin MacLeod (incompetech.com)
