@@ -28,6 +28,10 @@ AudioManager="*res://audio/manager/audio_manager.tscn"
 
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/movie_file="M:/Jacob/Documents/Godot/Exports/video.avi"
+
 [input]
 
 "move up"={
